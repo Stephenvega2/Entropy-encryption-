@@ -1,0 +1,34 @@
+import random
+from cryptography.fernet import Fernet
+
+def reverse_with_entropy(s):
+    # Generate a random step value to simulate uncertainty
+    random_step = random.choice([-1, -5, -10, -20, 1, 5, 10, 20]) * (random.randint(1, 24) + random.randint(1, 24))
+    # Apply the step value to reverse the string with some uncertainty
+    return s[::random_step]
+
+def encrypt_string(s, key):
+    cipher_suite = Fernet(key)
+    return cipher_suite.encrypt(s.encode())
+
+def decrypt_string(cipher_text, key):
+    cipher_suite = Fernet(key)
+    return cipher_suite.decrypt(cipher_text).decode()
+
+# Generate a key for encryption
+key = Fernet.generate_key()
+
+# Original string
+h = input("enter a string:")
+
+# Reverse the string with entropy
+reversed_string = reverse_with_entropy(h)
+print("Reversed string with entropy:", reversed_string)
+
+# Encrypt the reversed string
+encrypted_string = encrypt_string(reversed_string, key)
+print("Encrypted string:", encrypted_string)
+
+# Decrypt the string to verify
+decrypted_string = decrypt_string(encrypted_string, key)
+print("Decrypted string:", decrypted_string)
