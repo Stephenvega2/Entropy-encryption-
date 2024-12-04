@@ -19,7 +19,7 @@ def decrypt_string(cipher_text, key):
 key = Fernet.generate_key()
 
 # Original string
-h = input("enter a string:")
+h = ("enter a string:")
 
 # Reverse the string with entropy
 reversed_string = reverse_with_entropy(h)
